@@ -112,11 +112,11 @@ def OperadorMutacion(cromosoma, p_mut):
     nAleatorio = np.random.random()
     Pos1 = np.random.randint(0,nGenes)
     Pos2 = np.random.randint(0,nGenes)
-    #Con este if se asegura que no se mute el primer gen del cromosoma
-    if Pos1!=0 and Pos2!=0:
-        if nAleatorio < p_mut:
-            cromosomaMutado[Pos1] = cromosoma[Pos2]
-            cromosomaMutado[Pos2] = cromosoma[Pos1]
+    #Con este if se mutan si se cumple la probabilidad
+    
+    if nAleatorio < p_mut:
+        cromosomaMutado[Pos1] = cromosoma[Pos2]
+        cromosomaMutado[Pos2] = cromosoma[Pos1]
 
     return cromosomaMutado
 
@@ -217,7 +217,8 @@ for i in range(nGeneraciones):
     cantidad_de_mutaciones=np.random.randint(3,10)
     #Se mutan todos los genes para así tener la siguiente generación la cantidad de veces predicha
     for k in range(3,cantidad_de_mutaciones):
-        for j in range (tamañoPoblacion):
+        #Se muta la población a excepción del primer individuo
+        for j in range (1,tamañoPoblacion):
             cromosoma_a_mutar=poblacion[j]
             poblacion[j]=OperadorMutacion(cromosoma_a_mutar,p_mut)
         
